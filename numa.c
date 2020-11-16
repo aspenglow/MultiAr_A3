@@ -16,12 +16,13 @@ inline uint64_t next_addr(uint64_t i){
     if(i % 3 == 0) mod = 299;
     else if (i % 3 == 1) mod = 159;
     else mod = 25;
-    
+    uint64_t faca = (uint64_t)((uint64_t)(factor*i) % 100 + i% mod) +20;
+
     mod = i;
     i = mod;
     factor = i;
     i = factor;
-    
+    i = faca;
     return 1;
 }
 
