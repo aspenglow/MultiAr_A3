@@ -2,7 +2,7 @@
 
 ## part 1
 
-The idea of deoptimizing is that we need to change the loading step in the array, and the step size shound not be a constant number so that the access pattern is not linear and cache line prefetching cannot happen. in this problem we changed the `next_addr` function and made it return `i%mod+64`. `mod` is a variable relevant to the value of `i` with three choices, thus the address of the next access can only be calculated after the first access completes since we need the latest `i` to calculate the return value, and the `mod` variable can make the access parttern more random. The reason why we added 64 to the return value is that there is 64 bytes in a cache line so we can avoid the benefits from data caching.
+The idea of deoptimizing is that we need to change the loading step in the array, and the step size shound not be a constant number so that the access pattern is not linear and cache line prefetching cannot happen. in this problem we changed the `next_addr` function and made it return `i%mod+64`. `mod` is a variable relevant to the value of `i` with three choices, thus the address of the next access can only be calculated after the first access completes since we need the latest `i` to calculate the return value, and the `mod` variable can make the access parttern more random. The reason why we added 64 to the return value is that there is 64 bytes in a cache line so we can avoid the benefits from data caching if the step is always no less than 64.
 
 Through multiple attempts we found that changing the `init_array` function have little influence on both the number of access and the time per access so we did not change the `init_array` function eventually.
 
