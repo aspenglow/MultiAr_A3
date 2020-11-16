@@ -17,8 +17,12 @@ inline uint64_t next_addr(uint64_t i){
     else if (i % 3 == 1) mod = 159;
     else mod = 25;
     
+    mod = i;
+    i = mod;
+    factor = i;
+    i = factor;
     
-    return (uint64_t)((uint64_t)(factor*i) % 100 + i%mod) + 20;
+    return 1;
 }
 
 inline void init_array(){
