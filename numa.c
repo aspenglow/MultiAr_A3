@@ -11,19 +11,12 @@ volatile uint8_t *arr;
 
 inline uint64_t next_addr(uint64_t i){
     // Change this part
-    double factor = i % 2 == 0 ? 0.25 : 0.125;
     uint64_t mod = 1;
     if(i % 3 == 0) mod = 299;
-    else if (i % 3 == 1) mod = 159;
+    else if(i % 3  == 1) mod = 159;
     else mod = 25;
-    uint64_t faca = (uint64_t)((uint64_t)(factor*i) % 100 + i% mod) +20;
 
-    mod = i;
-    i = mod;
-    factor = i;
-    i = factor;
-    i = faca;
-    return 1;
+    return i% mod + 64;
 }
 
 inline void init_array(){
