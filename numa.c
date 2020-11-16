@@ -11,7 +11,6 @@ volatile uint8_t *arr;
 
 inline uint64_t next_addr(uint64_t i){
     // Change this part
-<<<<<<< HEAD
     double factor = i % 2 == 0 ? 0.25 : 0.125;
     uint64_t mod = 1;
     if(i % 3 == 0) mod = 299;
@@ -20,9 +19,6 @@ inline uint64_t next_addr(uint64_t i){
     
     
     return (uint64_t)((uint64_t)(factor*i) % 100 + i%mod) + 20;
-=======
-    return (uint64_t)(200 + i%399);
->>>>>>> c395bd9f532e0dca78e4240fc9cada8c599cc89b
 }
 
 inline void init_array(){
