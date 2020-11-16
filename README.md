@@ -1,10 +1,8 @@
 # Assignement 3 - Group 48
 
-## The parallelization
+## part 1
 
-### part 1
-
-Parellelizing with no optimization is trivially done by adding ```#pragma omp parallel for``` before the loop with the i variable. We do not parallelize the loop with the n variable since each iteration is dependant of the previous one.
+The idea of deoptimizing is that we need to change the loading step in the array, and the step size shound not be a constant number so that the access pattern is not linear and cache line prefetching cannot happen. in this problem we changed the `next_addr` function
 
 The problem with the basic algorithm is that to compute one value of output we need to access at least 4 cache lines (one for the output, one for the row `i-1`, `i` and `i+1`) in a fairly unpredictable way because there are `length` values between two cache lines. An optimization to this problem is separate the inner loop into three separate loops. Each of these loops accumulate the result of its calculation to the row. Now to compute one value of output the minimum of cache lines accessed is 2 and since we read only values in a sequential way this reduces the number of cache misses.
 
