@@ -15,7 +15,7 @@ void *thread1Func(void *param){
         t1block = true; // Set up blocker
 
         X = 1;
-        asm volatile("" ::: "memory"); // Prevent any compiler reordering
+        asm volatile("mfence" ::: "memory"); // Prevent any compiler reordering
         r1 = Y;
 
         t1fin = true; // Signal iteration end
@@ -29,7 +29,7 @@ void *thread2Func(void *param){
         t2block = true; // Set up blocker
 
         Y = 1;
-        asm volatile("" ::: "memory"); // Prevent any compiler reordering
+        asm volatile("mfence" ::: "memory"); // Prevent any compiler reordering
         r2 = X;
 
         t2fin = true; // Signal iteration end
@@ -69,7 +69,7 @@ int main(){
 
         // Wait for threads to complete their iteration
         while(!(t1fin && t2fin));
-
+        
         // Check if there was a memory reordering
         if (r1 == 0 && r2 == 0){
             detected++;
