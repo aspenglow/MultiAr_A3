@@ -12,9 +12,9 @@ There are three NUMA memory allocation policies, 'local', 'remote', 'interleaved
 
 | NUMA policy | total time(s) | number of accesses |  Time per access(s) |
 |:-----------:|--------------:|-------------------:|--------------------:|
-|remote       |0.9693         |25768665            |3.749e-8             |
-|interleaved  |0.7782         |25768665            |3.014e-8             |
-|local        |0.6252         |25768665            |2.426e-8             |
+|remote       |0.9693         |25768665            |3.749e-08            |
+|interleaved  |0.7782         |25768665            |3.014e-08            |
+|local        |0.6252         |25768665            |2.426e-08            |
 
 ### origin numa program
 
@@ -30,6 +30,14 @@ We can observe that:
 2. Both the total traversing time and the time per access with three policies: remote > interleaved > local
 3. After deoptimizing the program, time per access multiplied nearly 50 and total traversing time multiplied nearly 5. Optimization can shorten both the time per access and the total traversing time significantly.
 
+We de-optimized both the data caching and cache line prefetching. To know how much each of them effect the (time taken/memory access) metric, we need to make a experiment with only one of the deoptimization executed. We changed the `next_addr` function and made it returns 64 so that the code only de-optimized data caching, and make the cache line prefetching exist in the code. and the result is:
 
+### only de-optimize data caching
+| NUMA policy | total time(s) | number of accesses |  Time per access(s) |
+|:-----------:|--------------:|-------------------:|--------------------:|
+|remote       |1.08           |134217728           |8.047e-09            |
+|interleaved  |0.8913         |134217728           |6.641e-09            |
+|local        |0.7195         |134217728           |5.361e-09            |
 
+We can find that with only de-optimizing data caching, compared with the first table, both the number of accesses and the time per access has increased. So data caching optimization can make the memory access increase and time per access decrease. The second table is the result with both of the two optimization, so we can conclude that cache line optimization can also increase the memory access and decrease the time per access.
 
