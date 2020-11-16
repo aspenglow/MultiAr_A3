@@ -12,9 +12,9 @@ volatile uint8_t *arr;
 inline uint64_t next_addr(uint64_t i){
     // Change this part
     uint64_t mod = 1;
-    if(i % 3 == 0) mod = 299;
-    else if(i % 3  == 1) mod = 159;
-    else mod = 25;
+    if(i % 3 == 0) mod = 799;
+    else if(i % 3  == 1) mod = 599;
+    else mod = 259;
 
     return i% mod + 64;
 }
