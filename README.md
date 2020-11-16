@@ -8,13 +8,13 @@ Through multiple attempts we found that changing the `init_array` function have 
 
 There are three NUMA memory allocation policies, 'local', 'remote', 'interleave', respectively. We editted the `execute_numa.sh` to submit the code through these three policies. `numactl --cpunodebind=0 --membind=1 ./numa` correspond to 'remote' policy, `numactl --interleave=all ./numa` correspond to 'interleave' policy, `numactl --localalloc ./numa` corresponds to 'local' policy. The result is:
 
-| # NUMA policy| Execution Time(s)| Speedup |
-|:------------:|-----------------:|--------:|
-|1             |31.64             |-        |
-|2             |15.89             |1.991    |
-|4             |8.057             |3.927    |
-|8             |6.368             |4.969    |
-|16            |4.766             |6.639    |
+| NUMA policy | Execution Time(s) | Speedup |
+|:-----------:|-----------------: |--------:|
+|           |31.64              |-        |
+|2            |15.89              |1.991    |
+|4            |8.057              |3.927    |
+|8            |6.368              |4.969    |
+|16           |4.766              |6.639    |
 
 
 The problem with the basic algorithm is that to compute one value of output we need to access at least 4 cache lines (one for the output, one for the row `i-1`, `i` and `i+1`) in a fairly unpredictable way because there are `length` values between two cache lines. An optimization to this problem is separate the inner loop into three separate loops. Each of these loops accumulate the result of its calculation to the row. Now to compute one value of output the minimum of cache lines accessed is 2 and since we read only values in a sequential way this reduces the number of cache misses.
