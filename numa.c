@@ -11,7 +11,7 @@ volatile uint8_t *arr;
 
 inline uint64_t next_addr(uint64_t i){
     // Change this part
-    return 1;
+    return (uint64_t)(200 + i%399);
 }
 
 inline void init_array(){
