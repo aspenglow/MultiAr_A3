@@ -24,6 +24,12 @@ There are three NUMA memory allocation policies, 'local', 'remote', 'interleave'
 |interleave   |5.095          |8589934592          |5.932e-10            |
 |local        |5.072          |8589934592          |5.904e-10            |
 
+We can observe that:
+
+1. The number of accesses only depend on the `next-addr` function and is irrelevant to allocation policy.
+2. Both the total traversing time and the time per access with three policies: remote > interleave > local
+3. After deoptimizing the program, time per access multiplied nearly 50 and total traversing time multiplied nearly 5. Optimization can shorten both the time per access and the total traversing time significantly.
+
 
 
 
