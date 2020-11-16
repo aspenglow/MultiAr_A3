@@ -10,10 +10,10 @@ There are three NUMA memory allocation policies, 'local', 'remote', 'interleave'
 
 | NUMA policy | Execution Time(s) | Speedup |
 |:-----------:|-----------------: |--------:|
-|           |31.64              |-        |
-|2            |15.89              |1.991    |
-|4            |8.057              |3.927    |
-|8            |6.368              |4.969    |
+|remote       |31.64              |-        |
+|interleave   |15.89              |1.991    |
+|local        |8.057              |3.927    |
+|origin code  |6.368              |4.969    |
 |16           |4.766              |6.639    |
 
 
